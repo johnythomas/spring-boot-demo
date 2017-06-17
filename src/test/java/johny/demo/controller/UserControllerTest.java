@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -29,7 +30,7 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    User user;
+    private User user;
 
     @Before
     public void setUp() throws Exception {
@@ -46,7 +47,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserIdForInvalidUserId() throws Exception {
-        when(this.userService.getUserById(Mockito.anyLong())).thenThrow(UserNotFoundException.class);
+        doThrow(UserNotFoundException.class).when(this.userService).getUserById(Mockito.anyLong());
         this.mvc.perform(get("/user/{id}", 1))
                 .andExpect(status().isNotFound());
     }
@@ -61,7 +62,7 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserUserByIdRestForInvalidUserId() throws Exception {
-        when(this.userService.getUserByIdRest(Mockito.anyLong())).thenThrow(UserNotFoundException.class);
+        doThrow(UserNotFoundException.class).when(this.userService).getUserByIdRest(Mockito.anyLong());
         this.mvc.perform(get("/userRest/{id}", 1))
                 .andExpect(status().isNotFound());
     }
