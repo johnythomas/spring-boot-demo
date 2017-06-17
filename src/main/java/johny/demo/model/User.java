@@ -56,9 +56,7 @@ public class User {
 
         User user = (User) o;
 
-        if (!id.equals(user.id)) return false;
-        if (!username.equals(user.username)) return false;
-        return role.equals(user.role);
+        return id.equals(user.id) && username.equals(user.username) && role.equals(user.role);
     }
 
     @Override

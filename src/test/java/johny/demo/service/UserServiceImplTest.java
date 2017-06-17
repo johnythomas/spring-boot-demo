@@ -37,9 +37,9 @@ public class UserServiceImplTest {
     private TestEntityManager entityManager;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
-    User user;
+    private User user;
 
     @Before
     public void setUp() throws Exception {
@@ -56,7 +56,7 @@ public class UserServiceImplTest {
     @Test
     public void testGetUserByIdForInvalidUserId() throws Exception {
         this.thrown.expect(UserNotFoundException.class);
-        User john = this.userService.getUserById(this.user.getId() + 1);
+        this.userService.getUserById(this.user.getId() + 1);
     }
 
     @Test
